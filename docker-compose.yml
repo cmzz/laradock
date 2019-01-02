@@ -39,7 +39,8 @@ volumes:
     driver: ${VOLUMES_DRIVER}
   elasticsearch:
     driver: ${VOLUMES_DRIVER}
-
+  golang:
+    driver: ${VOLUMES_DRIVER}
 services:
 
 ### Workspace Utilities ##################################
@@ -1292,3 +1293,23 @@ services:
         backend:
           aliases:
             - fetchmail
+
+### golang ################################################
+    golang:
+      build: ./golang
+      restart: always
+      ports:
+        - "8088:8088"
+        - "2223:22"
+      volumes:
+        - ${HOME}/Workspace/go:/go
+      extra_hosts:
+        - "dockerhost:${DOCKER_HOST_IP}"
+      tty: true
+      environment:
+        - DOCKER_HOST=tcp://docker-in-docker:2375
+      networks:
+        - frontend
+        - backend
+      links:
+        - docker-in-docker
