@@ -1,5 +1,3 @@
-FROM elasticsearch:latest
-
-MAINTAINER Bo-Yi Wu <appleboy.tw@gmail.com>
+FROM docker.elastic.co/elasticsearch/elasticsearch:6.2.3
 
 EXPOSE 9200 9300
