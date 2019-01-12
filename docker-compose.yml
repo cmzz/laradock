@@ -39,14 +39,11 @@ volumes:
     driver: ${VOLUMES_DRIVER}
   elasticsearch:
     driver: ${VOLUMES_DRIVER}
-<<<<<<< HEAD
   golang:
     driver: ${VOLUMES_DRIVER}
-=======
   mosquitto:
     driver: ${VOLUMES_DRIVER}
 
->>>>>>> f44a8e0ca0e6c1b9451e3424d75072155c59bc62
 services:
 
 ### Workspace Utilities ##################################
