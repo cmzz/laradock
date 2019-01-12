@@ -1309,7 +1309,6 @@ services:
           aliases:
             - fetchmail
 
-<<<<<<< HEAD
 ### golang ################################################
     golang:
       build: ./golang
@@ -1329,7 +1328,6 @@ services:
         - backend
       links:
         - docker-in-docker
-=======
 ### MOSQUITTO Broker #########################################
     mosquitto:
       build:
@@ -1341,4 +1339,3 @@ services:
       networks:
         - frontend
         - backend
->>>>>>> f44a8e0ca0e6c1b9451e3424d75072155c59bc62
