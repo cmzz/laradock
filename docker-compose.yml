@@ -244,6 +244,8 @@ services:
       networks:
         - frontend
         - backend
+          aliases:
+            - api.pigtk.test
 
 ### Blackfire ########################################
     blackfire:
