@@ -996,14 +996,6 @@ RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
 
 RUN set -xe; php -v | head -n 1 | grep -q "PHP ${LARADOCK_PHP_VERSION}."
 
-###########################################################################
-# Install zsh + oh my zsh:
-###########################################################################
-
-RUN ["apt-get", "update"]
-RUN ["apt-get", "install", "-y", "zsh", "wget"]
-RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
-
 #
 #--------------------------------------------------------------------------
 # Final Touch
