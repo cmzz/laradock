@@ -533,6 +533,9 @@ RUN if [ ${INSTALL_NODE} = true ]; then \
         && if [ ${INSTALL_NPM_GULP} = true ]; then \
         npm install -g gulp \
         ;fi \
+        && if [ ${INSTALL_NPM_PM2} = true ]; then 
+          npm install -g pm2 
+        ;fi \
         && if [ ${INSTALL_NPM_BOWER} = true ]; then \
         npm install -g bower \
         ;fi \
@@ -611,11 +614,6 @@ RUN if [ ${INSTALL_YARN} = true ]; then \
     echo "" >> ~/.bashrc && \
     echo 'export YARN_DIR="/home/laradock/.yarn"' >> ~/.bashrc && \
     echo 'export PATH="$YARN_DIR/bin:$PATH"' >> ~/.bashrc \
-;fi
-
-RUN if [ ${INSTALL_NODE} = true ]; then \
-  && if [ ${INSTALL_NPM_PM2} = true ]; then 
-    npm install -g pm2 
 ;fi
 
 # Add PATH for YARN
