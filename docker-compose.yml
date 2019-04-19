@@ -1444,3 +1444,4 @@ services:
         - "${MANTICORE_HTTP_PORT}:9308"        
       networks:
         - backend
+
