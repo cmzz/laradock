@@ -530,11 +530,11 @@ RUN if [ ${INSTALL_NODE} = true ]; then \
         && if [ ${NPM_REGISTRY} ]; then \
         npm config set registry ${NPM_REGISTRY} \
         ;fi \
-        && if [ ${INSTALL_NPM_GULP} = true ]; then \
-        npm install -g gulp \
-        ;fi \
         && if [ ${INSTALL_NPM_PM2} = true ]; then \
         npm install -g pm2 \
+        ;fi \
+        && if [ ${INSTALL_NPM_GULP} = true ]; then \
+        npm install -g gulp \
         ;fi \
         && if [ ${INSTALL_NPM_BOWER} = true ]; then \
         npm install -g bower \
