@@ -613,6 +613,11 @@ RUN if [ ${INSTALL_YARN} = true ]; then \
     echo 'export PATH="$YARN_DIR/bin:$PATH"' >> ~/.bashrc \
 ;fi
 
+RUN if [ ${INSTALL_NODE} = true ]; then \
+  && if [ ${INSTALL_NPM_PM2} = true ]; then 
+    npm install -g pm2 
+;fi
+
 # Add PATH for YARN
 ENV PATH $PATH:/home/laradock/.yarn/bin
 
