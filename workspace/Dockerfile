@@ -534,7 +534,7 @@ RUN if [ ${INSTALL_NODE} = true ]; then \
         npm install -g gulp \
         ;fi \
         && if [ ${INSTALL_NPM_PM2} = true ]; then 
-          npm install -g pm2 
+        npm install -g pm2 
         ;fi \
         && if [ ${INSTALL_NPM_BOWER} = true ]; then \
         npm install -g bower \
