@@ -39,6 +39,8 @@ volumes:
     driver: ${VOLUMES_DRIVER}
   elasticsearch:
     driver: ${VOLUMES_DRIVER}
+  fluentd:
+    driver: ${VOLUMES_DRIVER}
   golang:
     driver: ${VOLUMES_DRIVER}
   mosquitto:
@@ -648,6 +650,21 @@ services:
         LS_JAVA_OPTS: '-Xmx1g -Xms1g'
       env_file:
         - .env
+      networks:
+        - frontend
+        - backend
+      depends_on:
+        - elasticsearch
+
+### Fluentd ##############################################
+    fluentd:
+      build: ./fluentd
+      volumes:
+        - './fluentd/conf:/fluentd/etc'
+        - './logs/fluentd:/var/lib/fluentd'
+      ports:
+        - "24224:24224"
+        - "24224:24224/udp"
       networks:
         - frontend
         - backend
