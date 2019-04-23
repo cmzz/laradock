@@ -112,6 +112,7 @@ services:
           - BLACKFIRE_CLIENT_ID=${BLACKFIRE_CLIENT_ID}
           - BLACKFIRE_CLIENT_TOKEN=${BLACKFIRE_CLIENT_TOKEN}
           - INSTALL_POWERLINE=${WORKSPACE_INSTALL_POWERLINE}
+          - INSTALL_FFMPEG=${WORKSPACE_INSTALL_FFMPEG}
       volumes:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
       extra_hosts:
@@ -599,7 +600,6 @@ services:
 
 ### pgAdmin ##############################################
     pgadmin:
-      container_name: pgadmin
       image: dpage/pgadmin4:latest
       environment:
         - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}"
