@@ -1462,3 +1462,15 @@ services:
       networks:
         - backend
 
+### gogs ###################################################
+    gogs:
+      build:
+        context: ./gogs
+      volumes:
+        - ${DATA_PATH_HOST}/gogs/data:/data
+      ports:
+        - "${GOGS_PORT}:3000"
+        - "${GOGS_SSH_PORT}:22"
+      networks:
+        - frontend
+        - backend
