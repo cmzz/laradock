@@ -15,7 +15,7 @@
   <store>
     @type elasticsearch_dynamic
     type_name fluentd
-    logstash_prefix ${record["tag"]}
+    logstash_prefix ${tag_parts[2]}-${tag_parts[1]}-${tag_parts[0]}
     logstash_format true
     host elasticsearch
     include_tag_key false
