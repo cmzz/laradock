@@ -17,9 +17,9 @@ CN="paycats.cn"
 # 邮箱地址
 emailAddress="demo.paycats.cn"
 
-mkdir -p ./demoCA/{private,newcerts}
-touch ./demoCA/index.txt
-[ ! -f ./demoCA/seria ] && echo 01 > ./demoCA/serial
-[ ! -f ./demoCA/crlnumber ] && echo 01 > ./demoCA/crlnumber
-[ ! -f ./demoCA/cacert.pem ] && openssl req -utf8 -new -x509 -days 36500 -newkey rsa:2048 -nodes -keyout ./demoCA/private/ca_key.pem -out ./demoCA/ca_cert.pem -subj "/C=${C}/ST=${ST}/L=${L}/O=${O}/OU=${OU}/CN=${CN}/emailAddress=${emailAddress}"
-[ ! -f ./demoCA/private/ca.crl ] && openssl ca -crldays 36500 -gencrl -out "./demoCA/private/ca.crl"
+mkdir -p ./mch_ca/{private,newcerts}
+touch ./mch_ca/index.txt
+[ ! -f ./mch_ca/seria ] && echo 01 > ./mch_ca/serial
+[ ! -f ./mch_ca/crlnumber ] && echo 01 > ./mch_ca/crlnumber
+[ ! -f ./mch_ca/cacert.pem ] && openssl req -utf8 -new -x509 -days 36500 -newkey rsa:2048 -nodes -keyout ./mch_ca/private/ca_key.pem -out ./mch_ca/ca_cert.pem -subj "/C=${C}/ST=${ST}/L=${L}/O=${O}/OU=${OU}/CN=${CN}/emailAddress=${emailAddress}"
+[ ! -f ./mch_ca/private/ca.crl ] && openssl ca -crldays 36500 -gencrl -out "./mch_ca/private/ca.crl"
