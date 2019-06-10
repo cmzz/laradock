@@ -56,8 +56,9 @@ CN=${CN:-demo}
 # 邮箱地址
 emailAddress=${emailAddress:-demo@paycats.cn}
 
-mkdir -p "${CN}"
+saveDir="merchants/${CN}"
+mkdir -p ${saveDir}
 
-[ ! -f "${CN}/${CN}.key" ] && openssl req -utf8 -nodes -newkey rsa:2048 -keyout "${CN}/${CN}.key" -new -days 36500 -out "${CN}/${CN}.csr" -subj "/C=${C}/ST=${ST}/L=${L}/O=${O}/OU=${OU}/CN=${CN}/emailAddress=${emailAddress}"
-[ ! -f "${CN}/${CN}.crt" ] && openssl ca -utf8 -batch -days 36500 -in "${CN}/${CN}.csr" -out "${CN}/${CN}.crt"
-[ ! -f "${CN}/${CN}.p12" ] && openssl pkcs12 -export -clcerts -CApath ./mch_ca/ -inkey "${CN}/${CN}.key" -in "${CN}/${CN}.crt" -certfile "./mch_ca/ca_cert.pem" -passout pass: -out "${CN}/${CN}.p12"
+[ ! -f "${CN}/${CN}.key" ] && openssl req -config './conf/openssl.cnf' -utf8 -nodes -newkey rsa:2048 -keyout "${saveDir}/${CN}.key" -new -days 36500 -out "${saveDir}/${CN}.csr" -subj "/C=${C}/ST=${ST}/L=${L}/O=${O}/OU=${OU}/CN=${CN}/emailAddress=${emailAddress}"
+[ ! -f "${CN}/${CN}.crt" ] && openssl ca -config './conf/openssl.cnf' -utf8 -batch -days 36500 -in "${saveDir}/${CN}.csr" -out "${saveDir}/${CN}.crt"
+[ ! -f "${CN}/${CN}.p12" ] && openssl pkcs12 -export -clcerts -CApath ./mch_ca/ -inkey "${saveDir}/${CN}.key" -in "${saveDir}/${CN}.crt" -certfile "./mch_ca/cacert.pem" -passout pass: -out "${saveDir}/${CN}.p12"
