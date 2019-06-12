@@ -171,10 +171,10 @@ RUN echo "" >> ~/.bashrc && \
 
 USER root
 
-COPY ./crontab /etc/cron.d
-COPY ./crontab /var/spool/cron/crontabs
+# COPY ./crontab /etc/cron.d
+# RUN chmod -R 644 /etc/cron.d
 
-RUN chmod -R 644 /etc/cron.d
+COPY ./crontab /var/spool/cron/crontabs
 RUN chmod -R 644 /var/spool/cron/crontabs
 
 ###########################################################################
