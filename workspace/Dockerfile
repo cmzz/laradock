@@ -176,6 +176,7 @@ USER root
 
 COPY ./crontab /var/spool/cron/crontabs
 RUN chmod -R 644 /var/spool/cron/crontabs
+RUN chown -R laradock:crontab /var/spool/cron/crontabs
 
 ###########################################################################
 # Drush:
