@@ -45,6 +45,8 @@ volumes:
     driver: ${VOLUMES_DRIVER}
   mosquitto:
     driver: ${VOLUMES_DRIVER}
+  confluence:
+    driver: ${VOLUMES_DRIVER}
   sonarqube:
     driver: ${VOLUMES_DRIVER}
 
@@ -107,6 +109,8 @@ services:
           - INSTALL_LIBPNG=${WORKSPACE_INSTALL_LIBPNG}
           - INSTALL_IONCUBE=${WORKSPACE_INSTALL_IONCUBE}
           - INSTALL_MYSQL_CLIENT=${WORKSPACE_INSTALL_MYSQL_CLIENT}
+          - INSTALL_PING=${WORKSPACE_INSTALL_PING}
+          - INSTALL_SSHPASS=${WORKSPACE_INSTALL_SSHPASS}
           - PUID=${WORKSPACE_PUID}
           - PGID=${WORKSPACE_PGID}
           - CHROME_DRIVER_VERSION=${WORKSPACE_CHROME_DRIVER_VERSION}
@@ -182,6 +186,8 @@ services:
           - INSTALL_RDKAFKA=${PHP_FPM_INSTALL_RDKAFKA}
           - INSTALL_ADDITIONAL_LOCALES=${PHP_FPM_INSTALL_ADDITIONAL_LOCALES}
           - INSTALL_MYSQL_CLIENT=${PHP_FPM_INSTALL_MYSQL_CLIENT}
+          - INSTALL_PING=${PHP_FPM_INSTALL_PING}
+          - INSTALL_SSHPASS=${PHP_FPM_INSTALL_SSHPASS}
           - ADDITIONAL_LOCALES=${PHP_FPM_ADDITIONAL_LOCALES}
           - INSTALL_FFMPEG=${PHP_FPM_FFMPEG}
           - http_proxy
@@ -438,6 +444,10 @@ services:
         - SONARQUBE_POSTGRES_DB=${SONARQUBE_POSTGRES_DB}
         - SONARQUBE_POSTGRES_USER=${SONARQUBE_POSTGRES_USER}
         - SONARQUBE_POSTGRES_PASSWORD=${SONARQUBE_POSTGRES_PASSWORD}
+        - POSTGRES_CONFLUENCE_INIT=${CONFLUENCE_POSTGRES_INIT}
+        - POSTGRES_CONFLUENCE_DB=${CONFLUENCE_POSTGRES_DB}
+        - POSTGRES_CONFLUENCE_USER=${CONFLUENCE_POSTGRES_USER}
+        - POSTGRES_CONFLUENCE_PASSWORD=${CONFLUENCE_POSTGRES_PASSWORD}
       networks:
         - backend
 
@@ -831,6 +841,36 @@ services:
         - "${GRAFANA_PORT}:3000"
       networks:
         - backend
+
+### Graylog #######################################
+    graylog:
+        build: ./graylog
+        environment:
+          - GRAYLOG_PASSWORD_SECRET=${GRAYLOG_PASSWORD}
+          - GRAYLOG_ROOT_PASSWORD_SHA2=${GRAYLOG_SHA256_PASSWORD}
+          - GRAYLOG_HTTP_EXTERNAL_URI=http://127.0.0.1:${GRAYLOG_PORT}/
+        links:
+          - mongo
+          - elasticsearch
+        depends_on:
+          - mongo
+          - elasticsearch
+        ports:
+          # Graylog web interface and REST API
+          - ${GRAYLOG_PORT}:9000
+          # Syslog TCP
+          - ${GRAYLOG_SYSLOG_TCP_PORT}:514
+          # Syslog UDP
+          - ${GRAYLOG_SYSLOG_UDP_PORT}:514/udp
+          # GELF TCP
+          - ${GRAYLOG_GELF_TCP_PORT}:12201
+          # GELF UDP
+          - ${GRAYLOG_GELF_UDP_PORT}:12201/udp
+        user: root
+        volumes:
+          - ./graylog/config:/usr/share/graylog/data/config
+        networks:
+          - backend
 
 ### Laravel Echo Server #######################################
     laravel-echo-server:
@@ -1492,7 +1532,7 @@ services:
       ports:
         - "${MANTICORE_API_PORT}:9312"
         - "${MANTICORE_SPHINXQL_PORT}:9306"
-        - "${MANTICORE_HTTP_PORT}:9308"        
+        - "${MANTICORE_HTTP_PORT}:9308"
       networks:
         - backend
 
@@ -1544,3 +1584,18 @@ services:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
         - backend
+
+### CONFLUENCE ################################################
+    confluence:
+      container_name: Confluence
+      image: atlassian/confluence-server:${CONFLUENCE_VERSION}
+      restart: always
+      ports:
+        - "${CONFLUENCE_HOST_HTTP_PORT}:8090"
+      networks:
+        - frontend
+        - backend
+      depends_on:
+        - postgres
+      volumes:
+        - ${DATA_PATH_HOST}/Confluence:/var/atlassian/application-data
