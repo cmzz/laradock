@@ -317,8 +317,7 @@ ARG INSTALL_XDEBUG=false
 RUN if [ ${INSTALL_XDEBUG} = true ]; then \
     # Load the xdebug extension only with phpunit commands
     apt-get install -y php${LARADOCK_PHP_VERSION}-xdebug && \
-    sed -i 's/^;//g' /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/20-xdebug.ini && \
-    echo "alias phpunit='php -dzend_extension=xdebug.so /var/www/vendor/bin/phpunit'" >> ~/.bashrc \
+    sed -i 's/^;//g' /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/20-xdebug.ini \
 ;fi
 
 # ADD for REMOTE debugging
@@ -408,6 +407,37 @@ RUN if [ ${INSTALL_AMQP} = true ]; then \
     pecl -q install amqp && \
     echo "extension=amqp.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/amqp.ini && \
     ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/amqp.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/30-amqp.ini \
+;fi
+
+###########################################################################
+# CASSANDRA:
+###########################################################################
+
+ARG INSTALL_CASSANDRA=false
+
+RUN if [ ${INSTALL_CASSANDRA} = true ]; then \
+    apt-get install libgmp-dev -y && \
+    curl https://downloads.datastax.com/cpp-driver/ubuntu/18.04/dependencies/libuv/v1.28.0/libuv1-dev_1.28.0-1_amd64.deb -o libuv1-dev.deb && \
+    curl https://downloads.datastax.com/cpp-driver/ubuntu/18.04/dependencies/libuv/v1.28.0/libuv1_1.28.0-1_amd64.deb -o libuv1.deb && \
+    curl https://downloads.datastax.com/cpp-driver/ubuntu/18.04/cassandra/v2.12.0/cassandra-cpp-driver-dev_2.12.0-1_amd64.deb -o cassandra-cpp-driver-dev.deb && \
+    curl https://downloads.datastax.com/cpp-driver/ubuntu/18.04/cassandra/v2.12.0/cassandra-cpp-driver_2.12.0-1_amd64.deb -o cassandra-cpp-driver.deb && \
+    dpkg -i libuv1.deb && \
+    dpkg -i libuv1-dev.deb && \
+    dpkg -i cassandra-cpp-driver.deb && \
+    dpkg -i cassandra-cpp-driver-dev.deb && \
+    rm libuv1.deb libuv1-dev.deb cassandra-cpp-driver-dev.deb cassandra-cpp-driver.deb && \
+    cd /usr/src && \
+    git clone https://github.com/datastax/php-driver.git && \
+    cd /usr/src/php-driver/ext && \
+    phpize && \
+    mkdir /usr/src/php-driver/build && \
+    cd /usr/src/php-driver/build && \
+    ../ext/configure > /dev/null && \
+    make clean >/dev/null && \
+    make >/dev/null 2>&1 && \
+    make install && \
+    echo "extension=cassandra.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/cassandra.ini && \
+    ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/cassandra.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/30-cassandra.ini \
 ;fi
 
 ###########################################################################
