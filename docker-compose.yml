@@ -291,8 +291,14 @@ services:
       depends_on:
         - php-fpm
       networks:
-        - frontend
-        - backend
+        frontend:
+          aliases:
+            - simple.cms.pigtk.test
+            - api.pigtk.test
+        backend:
+          aliases:
+            - simple.cms.pigtk.test
+            - api.pigtk.test
 
 ### Blackfire ########################################
     blackfire:
