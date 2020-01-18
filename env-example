@@ -269,13 +269,22 @@ APACHE_DOCUMENT_ROOT=/var/www/
 
 ### MYSQL #################################################
 
-MYSQL_VERSION=latest
+MYSQL_VERSION=5.7
 MYSQL_DATABASE=default
 MYSQL_USER=default
 MYSQL_PASSWORD=secret
 MYSQL_PORT=3306
 MYSQL_ROOT_PASSWORD=root
 MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
+
+
+MYSQL8_VERSION=8.0
+MYSQL8_DATABASE=default
+MYSQL8_USER=default
+MYSQL8_PASSWORD=secret
+MYSQL8_PORT=3307
+MYSQL8_ROOT_PASSWORD=root
+MYSQL8_ENTRYPOINT_INITDB=./mysq-8.0/docker-entrypoint-initdb.d
 
 ### REDIS #################################################
 

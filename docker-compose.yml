@@ -9,6 +9,8 @@ networks:
 volumes:
   mysql:
     driver: ${VOLUMES_DRIVER}
+  mysql-80:
+    driver: ${VOLUMES_DRIVER}
   percona:
     driver: ${VOLUMES_DRIVER}
   mssql:
@@ -418,6 +420,25 @@ services:
         - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
       ports:
         - "${MYSQL_PORT}:3306"
+      networks:
+        - backend
+
+    mysql-80:
+      build:
+        context: ./mysq-8.0
+        args:
+          - MYSQL_VERSION=${MYSQL8_VERSION}
+      environment:
+        - MYSQL_DATABASE=${MYSQL8_DATABASE}
+        - MYSQL_USER=${MYSQL8_USER}
+        - MYSQL_PASSWORD=${MYSQL8_PASSWORD}
+        - MYSQL_ROOT_PASSWORD=${MYSQL8_ROOT_PASSWORD}
+        - TZ=${WORKSPACE_TIMEZONE}
+      volumes:
+        - ${DATA_PATH_HOST}/mysql-8.0:/var/lib/mysql
+        - ${MYSQL8_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+      ports:
+        - "${MYSQL8_PORT}:3306"
       networks:
         - backend
 
