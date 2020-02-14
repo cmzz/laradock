@@ -1,4 +1,5 @@
-FROM docker.elastic.co/elasticsearch/elasticsearch:7.1.1
+ARG ELK_VERSION=7.5.1
+FROM docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
 
 RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install --batch https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.1.1/elasticsearch-analysis-ik-7.1.1.zip
 
