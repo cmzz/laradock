@@ -4,9 +4,10 @@ ARG localPlugin=./pulgins/elasticsearch-analysis-ik-${ELK_VERSION}.zip
 FROM docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
 
 COPY ./plugins /usr/share
+RUN ls /usr/share/pulgins
 
-RUN if [ -f `//usr/share/${localPlugin}` ];then \
-    /usr/share/elasticsearch/bin/elasticsearch-plugin install `file:////usr/share${localPlugin}` \
+RUN if [ -f "//usr/share/${localPlugin}" ];then \
+    /usr/share/elasticsearch/bin/elasticsearch-plugin install "file:////usr/share${localPlugin}" \
     ;else \
     /usr/share/elasticsearch/bin/elasticsearch-plugin install --batch `https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v${ELK_VERSION}/elasticsearch-analysis-ik-${ELK_VERSION}.zip` \
     ;fi
