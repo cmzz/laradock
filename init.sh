@@ -40,7 +40,6 @@ rm -rf paycats-web-new/.env && cp paycats-web-new/example_net.env paycats-web-ne
 rm -rf payment-system/.env && cp payment-system/example_net.env payment-system/.env
 rm -rf ssl100-web/.env && cp ssl100-web/example_net.env ssl100-web/.env
 
-
-cd 
+cd ~/data/laradock
 docker-compose up -d nginx php-fpm php-worker
 
