@@ -5,8 +5,8 @@ apt install -y expect
 # 部署服务
 git clone https://code.aliyun.com/me19/laradock.git
 
-chmod +x laradock/install_docker.sh
-./laradock.sh
+chmod +x  laradock/install_docker.sh
+./laradock/install_docker.sh
 
 wget http://172.17.56.144/web.tar.gz
 wget http://172.17.56.144/nginx.tar.gz
