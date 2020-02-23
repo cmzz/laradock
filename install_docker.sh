@@ -1,9 +1,4 @@
-#!/usr/bin/expect
-
-set timeout 3
-
-# install docker
-
+#!/bin/bash
 
 sudo apt-get remove docker docker-engine docker.io containerd runc
 
@@ -35,8 +30,6 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 
-
 # install docker-compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "http://172.17.56.144/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
-
