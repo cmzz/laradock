@@ -17,7 +17,7 @@ mv static_web/nginx laradock/nginx
 cd laradock/
 cp env-example-2020-02-15 .env
 
-chmod +x login_aliyun_docker.sh && sh ./login_aliyun_docker.sh
+chmod +x login_aliyun_docker.sh && expect ./login_aliyun_docker.sh
 
 sudo docker pull registry.cn-hongkong.aliyuncs.com/cmzz/laradock_nginx:20200215
 sudo docker pull registry.cn-hongkong.aliyuncs.com/cmzz/laradock_php-fpm:20200215
@@ -42,3 +42,4 @@ rm -rf ssl100-web/.env && cp ssl100-web/example_net.env ssl100-web/.env
 
 cd ../laradock
 docker-compose up -d nginx php-fpm php-worker
+
