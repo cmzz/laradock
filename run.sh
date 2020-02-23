@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt update
+sudo apt -y install git
 apt install -y expect
 
 cd ~
