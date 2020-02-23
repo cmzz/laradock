@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd ~/data
+
 apt install -y expect
 
 sudo apt-get remove docker docker-engine docker.io containerd runc
@@ -32,19 +34,13 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 
-
 # install docker-compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "http://172.17.56.144/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
 
-
 # 部署服务
-git clone https://code.aliyun.com/me19/laradock.git
-
-chmod +x  laradock/install_docker.sh
-./laradock/install_docker.sh
-
+# git clone https://code.aliyun.com/me19/laradock.git
 wget http://172.17.56.144/web.tar.gz
 wget http://172.17.56.144/nginx.tar.gz
 
