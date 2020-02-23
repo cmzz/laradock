@@ -33,10 +33,18 @@ sudo systemctl restart docker
 
 apt install -y expect
 
+
+# install docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+
 # 部署服务
-git clone https://github.com/cmzz/laradock.git
+git clone https://code.aliyun.com/me19/laradock.git
 wget http://172.17.56.144/web.tar.gz
 wget http://172.17.56.144/nginx.tar.gz
+sudo curl -L "http://172.17.56.144/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
 tar xzvf web.tar.gz
 tar xzvf nginx.tar.gz
@@ -60,3 +68,14 @@ docker tag registry.cn-hongkong.aliyuncs.com/cmzz/laradock_workspace:20200215 la
 
 # 调整项目配置
 cd ../
+
+rm -rf doukou/.env && cp doukou/example_net.env doukou/.env
+rm -rf paycats-cp/.env && cp paycats-cp/example_net.env paycats-cp/.env
+rm -rf paycats-mchapi/.env && cp paycats-mchapi/example_net.env paycats-mchapi/.env
+rm -rf paycats-mchcp/.env && cp paycats-mchcp/example_net.env paycats-mchcp/.env
+rm -rf paycats-web-new/.env && cp paycats-web-new/example_net.env paycats-web-new/.env
+rm -rf payment-system/.env && cp payment-system/example_net.env payment-system/.env
+rm -rf ssl100-web/.env && cp ssl100-web/example_net.env ssl100-web/.env
+
+cd ../laradock
+docker-compose up -d nginx php-fpm php-worker
