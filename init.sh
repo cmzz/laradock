@@ -34,10 +34,18 @@ sudo systemctl restart docker
 apt install -y expect
 
 # 部署服务
+git clone https://github.com/cmzz/laradock.git
 wget http://172.17.56.144/web.tar.gz
+wget http://172.17.56.144/nginx.tar.gz
+
 tar xzvf web.tar.gz
+tar xzvf nginx.tar.gz
+
+rm -rf laradock/nginx
+mv nginx laradock/nginx 
 
 cd laradock/
+cp env-example-2020-02-15 .env
 sh ./login_aliyun_docker.sh
 
 sudo docker pull registry.cn-hongkong.aliyuncs.com/cmzz/laradock_nginx:20200215
@@ -49,3 +57,6 @@ docker tag registry.cn-hongkong.aliyuncs.com/cmzz/laradock_nginx:20200215 larado
 docker tag registry.cn-hongkong.aliyuncs.com/cmzz/laradock_php-fpm:20200215 laradock_php-fpm:latest
 docker tag registry.cn-hongkong.aliyuncs.com/cmzz/laradock_php-worker:20200215 laradock_php-worker:latest
 docker tag registry.cn-hongkong.aliyuncs.com/cmzz/laradock_workspace:20200215 laradock_workspace:latest
+
+# 调整项目配置
+cd ../
