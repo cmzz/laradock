@@ -15,3 +15,5 @@ chmod +x laradock/*.sh
 bash ./laradock/install_docker.sh
 
 bash ./laradock/init.sh
+
+bash ./laradock/sync_projects.sh

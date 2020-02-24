@@ -4,11 +4,9 @@ cd ~/data
 
 # 部署服务
 # git clone https://code.aliyun.com/me19/laradock.git
-wget http://172.17.56.144/web.tar.gz
+
 wget http://172.17.56.144/nginx.tar.gz
 
-
-tar xzvf web.tar.gz
 tar xzvf nginx.tar.gz
 
 rm -rf laradock/nginx
@@ -30,16 +28,6 @@ docker tag registry.cn-hongkong.aliyuncs.com/cmzz/laradock_php-worker:20200215 l
 docker tag registry.cn-hongkong.aliyuncs.com/cmzz/laradock_workspace:20200215 laradock_workspace:latest
 
 # 调整项目配置
-cd ../
-
-rm -rf doukou/.env && cp doukou/example_net.env doukou/.env
-rm -rf paycats-cp/.env && cp paycats-cp/example_net.env paycats-cp/.env
-rm -rf paycats-mchapi/.env && cp paycats-mchapi/example_net.env paycats-mchapi/.env
-rm -rf paycats-mchcp/.env && cp paycats-mchcp/example_net.env paycats-mchcp/.env
-rm -rf paycats-web-new/.env && cp paycats-web-new/example_net.env paycats-web-new/.env
-rm -rf payment-system/.env && cp payment-system/example_net.env payment-system/.env
-rm -rf ssl100-web/.env && cp ssl100-web/example_net.env ssl100-web/.env
-
 cd ~/data/laradock
 docker-compose up -d nginx php-fpm php-worker
 
