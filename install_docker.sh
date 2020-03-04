@@ -36,8 +36,11 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 
 # install docker-compose
-wget wget http://172.17.56.144/docker-compose.tar
-tar xvf docker-compose.tar
-chmod +x docker-compose-Linux-x86_64
-mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+# wget wget http://172.17.56.144/docker-compose.tar
+# tar xvf docker-compose.tar
+# chmod +x docker-compose-Linux-x86_64
+# mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
+# sudo chmod +x /usr/local/bin/docker-compose
+
+curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
