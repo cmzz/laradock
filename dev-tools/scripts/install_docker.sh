@@ -51,7 +51,7 @@ cd /mnt/data/laradock/
 cp dev-tools/env-example-2020-02-15 .env
 
 #chmod +x login_aliyun_docker.sh && expect ./login_aliyun_docker.sh
-cat aliyun-docker-repo-password | docker login --username=lynx_047@aliyun.com registry.cn-hongkong.aliyuncs.com --password-stdin
+cat /mnt/data/laradock/dev-tools/scripts/aliyun-docker-repo-password.txt | docker login --username=lynx_047@aliyun.com registry.cn-hongkong.aliyuncs.com --password-stdin
 
 sudo docker pull registry.cn-hongkong.aliyuncs.com/cmzz/laradock_nginx:20200215
 sudo docker pull registry.cn-hongkong.aliyuncs.com/cmzz/laradock_php-fpm:20200215
