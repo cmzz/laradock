@@ -292,7 +292,7 @@ MYSQL8_USER=default
 MYSQL8_PASSWORD=secret
 MYSQL8_PORT=3307
 MYSQL8_ROOT_PASSWORD=root
-MYSQL8_ENTRYPOINT_INITDB=./mysq-8.0/docker-entrypoint-initdb.d
+MYSQL8_ENTRYPOINT_INITDB=./mysql-8.0/docker-entrypoint-initdb.d
 
 ### REDIS #################################################
 

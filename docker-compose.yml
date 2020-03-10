@@ -433,7 +433,7 @@ services:
 
     mysql-80:
       build:
-        context: ./mysq-8.0
+        context: ./mysql-8.0
         args:
           - MYSQL_VERSION=${MYSQL8_VERSION}
       environment:
