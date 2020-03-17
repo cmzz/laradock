@@ -8,11 +8,12 @@ rm -rf ssl100-web/storage/logs/*.log
 rm -rf old_web/storage/logs/*.log
 
 
-tar zcvf ./static_web/web.tar.gz doukou/ \
+cd /mnt/vdb && tar -g snapshot -zcvf ./static_web/web.tar.gz doukou/ \
     paycats-cp/ \
     paycats-mchapi/ \
     paycats-mchcp/ \
     paycats-web-new/ \
     payment-system/ \
     ssl100-web/ \
-    old_web/
+    old_web/ \
+    tbk-commander
