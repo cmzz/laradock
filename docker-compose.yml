@@ -1774,3 +1774,14 @@ services:
         - ${DATA_PATH_HOST}/tomcat/logs:/usr/local/tomcat/logs
       # restart: always
 
+    mongo_db_backup:
+      image: 'mongo:latest'
+      networks:
+        - backend
+      depends_on:
+        - mongo
+      volumes:
+        - ${DATA_BACKUP_PATH_HOST}/mongo_backup:/backup'
+      command: |
+        mongodump --host mongo --out /backup/
+
