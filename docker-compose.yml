@@ -1781,7 +1781,7 @@ services:
       depends_on:
         - mongo
       volumes:
-        - ${DATA_BACKUP_PATH_HOST}/mongo_backup:/backup'
+        - ${DATA_BACKUP_PATH_HOST}/mongo_backup:/backup:rw'
       command: |
         mongodump --host mongo --out /backup/
 
