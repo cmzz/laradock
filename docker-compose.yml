@@ -170,6 +170,7 @@ services:
 
 ### PHP-FPM ##############################################
     php-fpm:
+      restart: always
       build:
         context: ./php-fpm
         args:
@@ -254,6 +255,7 @@ services:
 
 ### PHP Worker ############################################
     php-worker:
+      restart: always
       build:
         context: ./php-worker
         args:
@@ -320,6 +322,7 @@ services:
 
 ### NGINX Server #########################################
     nginx:
+      restart: always
       build:
         context: ./nginx
         args:
@@ -413,6 +416,7 @@ services:
 
 ### MySQL ################################################
     mysql:
+      restart: always
       build:
         context: ./mysql
         args:
@@ -569,6 +573,7 @@ services:
 
 ### MongoDB ##############################################
     mongo:
+      restart: always
       build: ./mongo
       ports:
         - "${MONGODB_PORT}:27017"
