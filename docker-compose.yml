@@ -348,10 +348,12 @@ services:
           aliases:
             - simple.cms.pigtk.test
             - api.pigtk.test
+            - dev.digitalcert.test
         backend:
           aliases:
             - simple.cms.pigtk.test
             - api.pigtk.test
+            - dev.digitalcert.test
 
 ### Blackfire ########################################
     blackfire:
