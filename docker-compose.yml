@@ -27,6 +27,10 @@ volumes:
     driver: ${VOLUMES_DRIVER}
   mongo:
     driver: ${VOLUMES_DRIVER}
+  mongo2:
+    driver: ${VOLUMES_DRIVER}
+  mongo3:
+    driver: ${VOLUMES_DRIVER}
   minio:
     driver: ${VOLUMES_DRIVER}
   rethinkdb:
@@ -614,6 +618,28 @@ services:
       volumes:
         - ${DATA_PATH_HOST}/mongo:/data/db
         - ${DATA_PATH_HOST}/mongo_config:/data/configdb
+      networks:
+        - backend
+
+    mongo2:
+      restart: always
+      build: ./mongo2
+      ports:
+        - "${MONGODB2_PORT}:27017"
+      volumes:
+        - ${DATA_PATH_HOST}/mongo2:/data/db
+        - ${DATA_PATH_HOST}/mongo2_config:/data/configdb
+      networks:
+        - backend
+
+    mongo3:
+      restart: always
+      build: ./mongo3
+      ports:
+        - "${MONGODB3_PORT}:27017"
+      volumes:
+        - ${DATA_PATH_HOST}/mongo3:/data/db
+        - ${DATA_PATH_HOST}/mongo3_config:/data/configdb
       networks:
         - backend
 
